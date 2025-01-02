@@ -113,7 +113,7 @@ export default function SignUp() {
         }
         if (validate == true) {
             try {
-                const response = await fetch('http://localhost:3000/signup', {
+                const response = await fetch('https://secure-user-backend.vercel.app/signup', {
                     method: 'POST',
                     body: JSON.stringify({ name, email, password }),
                     headers: {
