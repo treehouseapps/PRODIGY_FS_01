@@ -115,7 +115,7 @@ export default function SignUp() {
         }
         if (validate == true) {
             try {
-setText(<CircularProgress color="secondary"/>)
+setText(<CircularProgress color="success"/>)
                 const response = await fetch('https://secure-user-backend.vercel.app/signup', {
                     method: 'POST',
                     body: JSON.stringify({ name, email, password }),
