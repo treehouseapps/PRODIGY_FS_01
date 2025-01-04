@@ -60,7 +60,7 @@ export default function SignUp() {
     const [cPassword, SetCpassword] = useState()
     const [message, setMessage] = useState('Default')
     const [alertVisibility, setAlertVisibility] = useState(false);
-    const [text, setText] = useState("Sign in")
+    const [text, setText] = useState("Sign up")
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     const navigate = useNavigate();
