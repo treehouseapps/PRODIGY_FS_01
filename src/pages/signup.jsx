@@ -185,7 +185,7 @@ export default function SignUp() {
                                 },
                             }}
                         />
-                        <Typography>Email Address</Typography><CircularProgress />
+                        <Typography>Email Address</Typography>
                         <TextField
                             variant="outlined"
                             required
