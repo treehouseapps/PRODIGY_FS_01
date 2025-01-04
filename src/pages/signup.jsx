@@ -8,7 +8,8 @@ import {
     Grid,
     Box,
     Typography,
-    Container
+    Container,
+CircularProgress
 } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { makeStyles } from '@mui/styles';
@@ -183,7 +184,7 @@ export default function SignUp() {
                                 },
                             }}
                         />
-                        <Typography>Email Address</Typography>
+                        <Typography>Email Address</Typography><CircularProgress />
                         <TextField
                             variant="outlined"
                             required
