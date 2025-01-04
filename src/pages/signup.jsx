@@ -78,7 +78,7 @@ export default function SignUp() {
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        setText(<CircularProgress color="secondary"/>)
+        
         let validate = true
 
         if (!name) {
@@ -115,6 +115,7 @@ export default function SignUp() {
         }
         if (validate == true) {
             try {
+setText(<CircularProgress color="secondary"/>)
                 const response = await fetch('https://secure-user-backend.vercel.app/signup', {
                     method: 'POST',
                     body: JSON.stringify({ name, email, password }),
