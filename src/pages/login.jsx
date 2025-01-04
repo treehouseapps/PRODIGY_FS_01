@@ -11,6 +11,7 @@ import {
     Box,
     Typography,
     Container,
+    CircularProgress,
     IconButton,
     InputAdornment,
 } from '@mui/material';
@@ -65,11 +66,12 @@ export default function SignIn() {
     const [message, setMessage] = useState()
     const [showPassword, setShowPassword] = useState(false);
     const [alertVisibility, setAlertVisibility] = useState(false);
-
+const [text, setText] = useState("Sign in");
     const navigate = useNavigate();
 
     const onSubmit = async (e) => {
         e.preventDefault()
+setText(<CircularProgress sx={{ color: "white"}}/>)
         if (email && password) {
 
             try {
@@ -195,7 +197,7 @@ export default function SignIn() {
                             sx={{ marginTop: '1rem' }}
                             className={classes.submit}
                         >
-                            Sign In
+                            {text}
                         </Button>
                         <Grid container>
                             <Grid item xs>
