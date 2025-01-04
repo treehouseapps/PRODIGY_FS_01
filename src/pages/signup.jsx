@@ -54,57 +54,56 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
     const classes = useStyles();
     const theme = createTheme();
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [cPassword, SetCpassword] = useState()
-    const [message, setMessage] = useState('Default')
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [cPassword, SetCpassword] = useState('');
+    const [message, setMessage] = useState('')
     const [alertVisibility, setAlertVisibility] = useState(false);
     const [text, setText] = useState("Sign up")
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
+    let validate = true
     const navigate = useNavigate();
 
     // Simulate login response from the server , Session
-    const serverResponse = {
-        authToken: '12345678910',
-        userData: { userName: "name" },
-    };
     const alert = () => {
         setAlertVisibility(true);
         setTimeout(() => {
             setAlertVisibility(false);
         }, 5000);
     }
-    const check = async (data) => {
-        const info = await fetch('https://secure-user-backend.vercel.app/check', {
-            method: 'POST',
-            body: JSON.stringify({ name, email, password }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        if (info) {
-            const data = await response.json()
-            if (data.message.value == true) {
-                setMessage('Email is taken try another')
-                alert()
-                validate = false
-            }
-        }
-    }
+
+
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        let validate = true
 
-        if (!name) {
-            setMessage('name is required')
+        if (email) {
+            setText(<CircularProgress sx={{ color: "white" }} />)
+            const info = await fetch('https://secure-user-backend.vercel.app/check', {
+                method: 'POST',
+                body: JSON.stringify({ email }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (info) {
+                const data = await info.json()
+                if (data.message == true) {
+                    setMessage('Email is taken try another')
+                    alert()
+                    validate = false
+                    setText('Sign up')
+                }
+            }
+        }
+        if (!password) {
+            setMessage('Password is required')
             alert()
             validate = false
-        } else if (name.length < 3) {
-            setMessage('name is too short')
+        } else if (password.length < 6) {
+            setMessage('Password must be at least 6 characters')
             alert()
             validate = false
         }
@@ -117,33 +116,33 @@ export default function SignUp() {
             alert()
             validate = false
         }
-        if (!password) {
-            setMessage('Password is required')
-            alert()
-            validate = false
-        } else if (password.length < 6) {
-            setMessage('Password must be at least 6 characters')
-            alert()
-            validate = false
-        }
         if (password !== cPassword) {
             setMessage('Password is not same')
             alert()
             validate = false
         }
-        if (email) { check(data) }
+        if (!name) {
+            setMessage('name is required')
+            alert()
+            validate = false
+        } else if (name.length < 3) {
+            setMessage('name is too short')
+            alert()
+            validate = false
+        }
         if (validate == true) {
             try {
                 setText(<CircularProgress sx={{ color: "white" }} />)
                 const response = await fetch('https://secure-user-backend.vercel.app/signup', {
                     method: 'POST',
-                    body: JSON.stringify({ email }),
+                    body: JSON.stringify({ name, email, password }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
                 if (response) {
                     const data = await response.json()
+                    console.log('data ==== ' + response + 'dataaa' + data)
                     if (data.message.value == true) {
                         const serverResponse = {
                             authToken: '12345',
@@ -161,7 +160,6 @@ export default function SignUp() {
                 console.log(error)
             }
         }
-
     }
 
     return (
@@ -193,7 +191,7 @@ export default function SignUp() {
                             variant="outlined"
                             required
                             fullWidth
-                            id="email"
+                            id="name"
                             placeholder='Alexander'
                             name="name"
                             value={name}

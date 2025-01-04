@@ -66,12 +66,11 @@ export default function SignIn() {
     const [message, setMessage] = useState()
     const [showPassword, setShowPassword] = useState(false);
     const [alertVisibility, setAlertVisibility] = useState(false);
-const [text, setText] = useState("Sign in");
+    const [text, setText] = useState("Sign in");
     const navigate = useNavigate();
 
     const onSubmit = async (e) => {
         e.preventDefault()
-setText(<CircularProgress sx={{ color: "white"}}/>)
         if (email && password) {
 
             try {
@@ -87,6 +86,7 @@ setText(<CircularProgress sx={{ color: "white"}}/>)
                     const data = await response.json()
 
                     if (data.message.value == true) {
+                        setText(<CircularProgress sx={{ color: "white" }} />)
                         const serverResponse = {
                             authToken: '12345',
                             userData: { name: data.message.text },
