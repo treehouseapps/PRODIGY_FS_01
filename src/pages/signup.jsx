@@ -78,7 +78,7 @@ export default function SignUp() {
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        setText(<CircularProgress />)
+        setText(<CircularProgress color="secondary"/>)
         let validate = true
 
         if (!name) {
