@@ -9,7 +9,7 @@ import {
     Box,
     Typography,
     Container,
-CircularProgress
+    CircularProgress
 } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { makeStyles } from '@mui/styles';
@@ -61,6 +61,7 @@ export default function SignUp() {
     const [message, setMessage] = useState('Default')
     const [alertVisibility, setAlertVisibility] = useState(false);
     const [text, setText] = useState("Sign up")
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     const navigate = useNavigate();
@@ -76,9 +77,26 @@ export default function SignUp() {
             setAlertVisibility(false);
         }, 5000);
     }
+    const check = async (data) => {
+        const info = await fetch('https://secure-user-backend.vercel.app/check', {
+            method: 'POST',
+            body: JSON.stringify({ name, email, password }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (info) {
+            const data = await response.json()
+            if (data.message.value == true) {
+                setMessage('Email is taken try another')
+                alert()
+                validate = false
+            }
+        }
+    }
     const onSubmit = async (e) => {
         e.preventDefault()
-        
+
         let validate = true
 
         if (!name) {
@@ -113,12 +131,13 @@ export default function SignUp() {
             alert()
             validate = false
         }
+        if (email) { check(data) }
         if (validate == true) {
             try {
-setText(<CircularProgress sx={{ color: "white"}}/>)
+                setText(<CircularProgress sx={{ color: "white" }} />)
                 const response = await fetch('https://secure-user-backend.vercel.app/signup', {
                     method: 'POST',
-                    body: JSON.stringify({ name, email, password }),
+                    body: JSON.stringify({ email }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
