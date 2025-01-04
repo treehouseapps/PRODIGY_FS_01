@@ -60,7 +60,7 @@ export default function SignUp() {
     const [cPassword, SetCpassword] = useState()
     const [message, setMessage] = useState('Default')
     const [alertVisibility, setAlertVisibility] = useState(false);
-
+    const [text, setText] = useState("Sign in")
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     const navigate = useNavigate();
@@ -78,6 +78,7 @@ export default function SignUp() {
     }
     const onSubmit = async (e) => {
         e.preventDefault()
+        setText(<CircularProgress />)
         let validate = true
 
         if (!name) {
@@ -241,7 +242,7 @@ export default function SignUp() {
                             className={classes.submit}
                             sx={{ margin: '.5rem 0rem' }}
                         >
-                            Sign In
+                            {text}
                         </Button>
                         <Grid container>
                             <Grid item xs>
