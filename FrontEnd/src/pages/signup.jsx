@@ -112,6 +112,7 @@ export default function SignUp() {
             alert()
             validate = false
         } else if (!emailRegex.test(email)) {
+              setText("Sign up")
             setMessage('Invalid email format')
             alert()
             validate = false
