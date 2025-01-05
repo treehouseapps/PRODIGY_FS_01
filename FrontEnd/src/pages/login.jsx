@@ -96,6 +96,7 @@ export default function SignIn() {
                     }
                     else {
                         setMessage(data.message.text)
+                        setText("Sign in")
                         setAlertVisibility(true);
                         setTimeout(() => {
                             setAlertVisibility(false);
@@ -106,6 +107,7 @@ export default function SignIn() {
                 console.log(error)
             }
         } else {
+            setText("Sign in")
             setMessage("Fill out the form")
             setAlertVisibility(true);
             setTimeout(() => {
