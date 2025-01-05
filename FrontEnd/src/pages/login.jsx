@@ -72,7 +72,7 @@ export default function SignIn() {
     const onSubmit = async (e) => {
         e.preventDefault()
         if (email && password) {
-
+         setText(<CircularProgress sx={{ color: "white" }} />)
             try {
                 const response = await fetch('https://secure-user-backend.vercel.app/login', {
                     method: 'POST',
@@ -86,7 +86,6 @@ export default function SignIn() {
                     const data = await response.json()
 
                     if (data.message.value == true) {
-                        setText(<CircularProgress sx={{ color: "white" }} />)
                         const serverResponse = {
                             authToken: '12345',
                             userData: { name: data.message.text },
