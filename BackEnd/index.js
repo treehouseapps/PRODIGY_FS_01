@@ -14,7 +14,8 @@ server.get('/', (req, res) => {
 })
 
 server.get('/find', async (req, res) => {
-    res.json(await Model.find())
+    const data = await Model.find()
+    res.json(data)
 })
 server.use(cors());
 server.use('/', routes)
