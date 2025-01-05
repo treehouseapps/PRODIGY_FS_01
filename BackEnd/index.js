@@ -13,6 +13,11 @@ server.get('/', (req, res) => {
     res.json({ msg: 'Hello World ' })
 })
 
+app.use(cors({
+    origin: 'https://secure-user-frontend.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 server.get('/find', async (req, res) => {
     try {
         const data = await Model.find();
@@ -23,7 +28,6 @@ server.get('/find', async (req, res) => {
     }
 });
 
-server.use(cors());
 server.use('/', routes)
 
 server.listen(process.env.PORT, () => {
