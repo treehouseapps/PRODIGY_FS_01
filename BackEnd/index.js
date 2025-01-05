@@ -1,15 +1,15 @@
 const express = require('express')
-const server = express()
+const app = express()
 const bodyParser = require("body-parser")
 const cors = require('cors');
 require('dotenv').config()
 const Model = require('./model/model')
 
-server.use(bodyParser.json())
+app.use(bodyParser.json())
 
 const routes = require('./route/routes')
 
-server.get('/', (req, res) => {
+app.get('/', (req, res) => {
     res.json({ msg: 'Hello World ' })
 })
 
@@ -18,7 +18,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-server.get('/find', async (req, res) => {
+app.get('/find', async (req, res) => {
     try {
         const data = await Model.find();
         res.json(data);
@@ -28,8 +28,8 @@ server.get('/find', async (req, res) => {
     }
 });
 
-server.use('/', routes)
+app.use('/', routes)
 
-server.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server Running in port ' + process.env.PORT)
 })
